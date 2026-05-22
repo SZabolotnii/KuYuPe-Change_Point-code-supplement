@@ -1,0 +1,71 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  pytest:
+    name: pytest (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install package + test deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[dev]
+
+      - name: Run pytest
+        run: pytest tests/ -v --tb=short
+
+  lean:
+    name: Lean 4 + mathlib build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install elan (Lean version manager)
+        run: |
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+            | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Cache Lean build
+        uses: actions/cache@v4
+        with:
+          path: |
+            Lean/.lake
+            ~/.elan
+          key: lean-${{ hashFiles('Lean/lean-toolchain', 'Lean/lake-manifest.json') }}
+          restore-keys: |
+            lean-
+
+      - name: Build Lean GSA library (must compile without sorry)
+        working-directory: Lean
+        run: |
+          lake update
+          lake build GSA
+
+      - name: Verify zero `sorry` (research integrity guard)
+        working-directory: Lean
+        run: |
+          # Allowed: 1 axiom (hasMoment_of_higher in PolynomialBasis.lean).
+          # Disallowed: any `sorry` in *.lean files we author.
+          if grep -rn "^[^-]*sorry" GSA/ --include='*.lean' | grep -v "^GSA/.*--"; then
+            echo "::error::sorry detected in committed Lean source"; exit 1
+          fi
+          echo "OK — zero sorry, well-typed."

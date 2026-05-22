@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gsa-change-point"
+version = "1.0.0"
+description = "Generalized Stochastic Approximation of LLR for Sequential Change-Point Detection"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.9"
+authors = [
+    {name = "Serhii Zabolotnii"},
+]
+keywords = [
+    "change-point-detection",
+    "sequential-analysis",
+    "CUSUM",
+    "non-gaussian",
+    "moment-methods",
+    "stochastic-approximation",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "numpy>=1.21",
+    "scipy>=1.7",
+]
+
+[project.optional-dependencies]
+experiments = [
+    "matplotlib>=3.5",
+    "pandas>=1.4",
+    "ruptures>=1.1",
+]
+benchmarks = [
+    "matplotlib>=3.5",
+    "pandas>=1.4",
+    "ruptures>=1.1",
+    "requests>=2.28",
+]
+dev = [
+    "pytest>=7.0",
+    "hypothesis>=6.0",
+]
+all = ["gsa-change-point[experiments,benchmarks,dev]"]
+
+[project.urls]
+Homepage = "https://github.com/SZabolotnii/KuYuPe-Change_Point-code-supplement"
+Repository = "https://github.com/SZabolotnii/KuYuPe-Change_Point-code-supplement"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

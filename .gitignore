@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+
+# Virtual environment
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Lean build artifacts
+.lake/
+
+# Downloaded datasets (use experiments/real_data/download_datasets.py)
+data/raw/
+
+# Generated results (reproducible via experiments/)
+results/
+
+# Environment
+.env

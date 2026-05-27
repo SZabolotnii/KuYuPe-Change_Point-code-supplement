@@ -48,24 +48,23 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            Lean/.lake
+            .lake
             ~/.elan
-          key: lean-${{ hashFiles('Lean/lean-toolchain', 'Lean/lake-manifest.json') }}
+          key: lean-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
           restore-keys: |
             lean-
 
       - name: Build Lean GSA library (must compile without sorry)
-        working-directory: Lean
         run: |
           lake update
+          lake exe cache get || true
           lake build GSA
 
       - name: Verify zero `sorry` (research integrity guard)
-        working-directory: Lean
         run: |
           # Allowed: 1 axiom (hasMoment_of_higher in PolynomialBasis.lean).
           # Disallowed: any `sorry` in *.lean files we author.
-          if grep -rn "^[^-]*sorry" GSA/ --include='*.lean' | grep -v "^GSA/.*--"; then
+          if grep -rn "^[^-]*sorry" Lean/GSA/ --include='*.lean' | grep -v "^Lean/GSA/.*--"; then
             echo "::error::sorry detected in committed Lean source"; exit 1
           fi
           echo "OK — zero sorry, well-typed."

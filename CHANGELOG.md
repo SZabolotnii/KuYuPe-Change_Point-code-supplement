@@ -12,6 +12,37 @@ see `../VERSION.md` and `../reports/lean_theory_verification_report.md`.
 
 Targeted for v1.0.0 alongside the arxiv preprint v1 (Ukrainian).
 
+### Added (Sequential Analysis revision, 2026-05-25)
+- SCUSUM baseline (`src/gsa_cpd/baselines/scusum.py`) — Hyvärinen-score
+  CUSUM (Wu et al., AISTATS 2023) with MGF-constrained `lambda` selection
+  and Monte-Carlo ARL₀ calibration.
+- KQT-EWMA baseline (`src/gsa_cpd/baselines/kqt_ewma.py`) — distribution-free
+  QT-EWMA core (univariate special case of Nogara Notarianni et al., 2024).
+- Operating-characteristic experiment
+  `experiments/monte_carlo/exp06_oc_curves.py` (ADD vs ARL₀ at matched ARL₀:
+  GSA-CUSUM, classical CUSUM, SCUSUM, KQT-EWMA), reproducing the revised
+  paper §4.6.
+- Drift-lemma and F-misspecification studies
+  `exp07_drift_verification.py`, `exp08_f_misspecification.py`; new
+  experiments registered in `run_all.py`.
+- Baseline unit tests `tests/test_baselines.py` (13 tests).
+- Lean: local-Fisher / χ²-projection interpretive doc-comment on `J(s)` in
+  `Lean/GSA/Part2/InfoFunctional.lean` (paper §2.7 / C2 reformulation);
+  identifiers unchanged, `lake build GSA` remains green.
+
+### Changed (claim audit + shape-change OC, 2026-05-25)
+- `GSADetector.fit(..., h1_data=...)` — fit the reference anomaly to the actual
+  post-change moments, enabling detection of pure shape changes (skewness /
+  kurtosis at constant mean and variance), not just mean shifts.
+- `exp06_oc_curves.py` — added `skew_shape` (γ₃: 0→1.5) and `kurt_shape`
+  (γ₄: 0→6) scenarios; GSA detects ~2–5× faster than mean-based CUSUM/SCUSUM
+  and faster than the QT-EWMA core, whereas on mean shifts all moment/score
+  detectors coincide.
+- Docs: replaced "guaranteed FAR control" with the accurate "per-step FAR bound
+  (proven at s=1) + Monte Carlo calibration for s≥2" (README, `docs/API.md`);
+  `J(s)` described as a local Fisher / χ² quantity converging to the Jeffreys
+  divergence rather than a "projection of the KL divergence".
+
 ### Added (Etap 2 — Q1-Q2 closure, 2026-05-04)
 - Bootstrap CI utilities (`src/benchmarks/bootstrap_ci.py`,
   `src/benchmarks/compute_tier1_ci.py`) — percentile method, n_boot=1000.

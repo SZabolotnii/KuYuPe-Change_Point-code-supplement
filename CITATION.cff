@@ -14,8 +14,8 @@ authors:
     given-names: Serhii
     orcid: "https://orcid.org/0000-0003-0242-2234"
     affiliation: "Cherkasy State Business College, Cherkasy 18028, Ukraine"
-version: 1.0.0-rc1
-date-released: 2026-04-08
+version: 1.0.0-rc2
+date-released: 2026-05-25
 license: MIT
 repository-code: "https://github.com/SZabolotnii/KuYuPe-Change_Point-code-supplement"
 url: "https://github.com/SZabolotnii/KuYuPe-Change_Point-code-supplement"
@@ -45,4 +45,4 @@ references:
       Serhii Zabolotnii is also affiliated with:
       State Scientific Research Institute of Armament and Military Equipment
       Testing and Certification, Cherkasy, Ukraine;
-      healthPrecision, New York, NY, USA.
+      Uzhhorod National University, Uzhhorod, Ukraine.

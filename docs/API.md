@@ -94,7 +94,7 @@ Enum of threshold computation methods. All analytic methods use the PE (Probabil
 | `ThresholdType.SIMULATION` | MC-calibrated via bootstrap | No assumptions; slowest |
 
 **Notes:**
-- `CHEBYSHEV` is the default and provides guaranteed FAR control for any distribution.
+- `CHEBYSHEV` is the default and provides a per-step FAR bound for any distribution via Chebyshev's inequality (a proven per-step bound at `s=1`; for higher orders the in-control run length is set by Monte Carlo calibration).
 - `VP` (Vysochansky-Petunin) gives a tighter threshold when the unimodal assumption holds, reducing ADD.
 - `SIMULATION` uses bootstrap resampling of calibration data and binary search on ARL.
 

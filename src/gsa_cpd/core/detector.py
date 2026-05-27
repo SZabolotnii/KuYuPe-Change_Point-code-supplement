@@ -88,12 +88,17 @@ class GSADetector:
         """Time index of the alarm (None if no alarm)."""
         return self._alarm_time
 
-    def fit(self, calibration_data: np.ndarray, delta: float = 0.2) -> "GSADetector":
+    def fit(self, calibration_data: np.ndarray, delta: float = 0.2,
+            h1_data: Optional[np.ndarray] = None) -> "GSADetector":
         """Calibrate the detector on H0 data.
 
         Args:
             calibration_data: Array of observations under normal regime (H0).
             delta: MDE coefficient — expected relative change in moments.
+            h1_data: Optional post-change (H1) sample. When given, the reference
+                anomaly is taken from its empirical basis moments (a general
+                change, e.g. a shape/skew/kurtosis change at matched mean and
+                variance), overriding the MDE heuristic.
 
         Returns:
             self (for chaining).
@@ -110,16 +115,25 @@ class GSADetector:
         if s == 1:
             Cov0 = np.array([[np.var(B)]])
 
-        # 3. Reference hypothesis H1 (MDE strategy)
-        m = u.copy()
-        std_x = np.std(calibration_data)
-        for i in range(s):
-            power = i + 1
-            if power % 2 == 0:
-                m[i] = u[i] * (1.0 + delta)
-            else:
-                m[i] = u[i] + 0.1 * std_x
-        Cov1 = Cov0 * (1.0 + delta)
+        # 3. Reference hypothesis H1
+        if h1_data is not None:
+            # General reference anomaly: empirical H1 moments from actual
+            # post-change data (e.g. a pure shape change at matched mean/var).
+            Bh1 = evaluate_basis_matrix(
+                self._winsorize(h1_data), s, self.basis, self.phi_max)
+            m = np.mean(Bh1, axis=0)
+            Cov1 = np.cov(Bh1, rowvar=False) if s > 1 else np.array([[np.var(Bh1)]])
+        else:
+            # Reference hypothesis H1 (MDE strategy)
+            m = u.copy()
+            std_x = np.std(calibration_data)
+            for i in range(s):
+                power = i + 1
+                if power % 2 == 0:
+                    m[i] = u[i] * (1.0 + delta)
+                else:
+                    m[i] = u[i] + 0.1 * std_x
+            Cov1 = Cov0 * (1.0 + delta)
 
         # 4. Build and solve FK=Y
         F = Cov0 + Cov1

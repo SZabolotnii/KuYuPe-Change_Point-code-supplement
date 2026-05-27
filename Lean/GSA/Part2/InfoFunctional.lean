@@ -21,7 +21,15 @@ open Filter
 
 variable {H : Type*} [NormedAddCommGroup H] [InnerProductSpace ℝ H]
 
-/-- J(s) = часткова сума квадратів коефіцієнтів розкладу `z` по `HilbertBasis`. -/
+/-- Information functional J(s): partial sum of squared Hilbert-basis coefficients of `z`.
+
+  **Interpretation (paper § 2.7, C2 reformulation).**
+  When `z` is the score vector (derivative of log-density) evaluated at a small perturbation δ,
+  J(s) equals the s-term projection of the χ²-divergence onto the basis subspace, and — to
+  leading order in δ — approximates twice the KL divergence via Fisher information in basis
+  coordinates (Le Cam QMD / local asymptotic normality).  In the orthonormal case the equality
+  J(s) = ‖Pₛ z‖² makes this a Parseval-type projection of χ², explaining why J(s) ≤ J = ‖z‖²
+  (Theorem 2a) and J(s) → J as s → ∞ (Theorem 2c). -/
 noncomputable def J (b : HilbertBasis ℕ ℝ H) (z : H) (s : ℕ) : ℝ :=
   (Finset.range s).sum fun i => (b.repr z i)^2
 
@@ -38,6 +46,9 @@ theorem tsum_repr_sq_eq_norm_sq (b : HilbertBasis ℕ ℝ H) (z : H) :
     simp [HilbertBasis.repr_apply_apply, real_inner_comm, pow_two]
   simpa [hterm, real_inner_self_eq_norm_sq] using h
 
+/- Theorem 2 (a/b/c): the three structural properties of J(s) — upper bound by ‖z‖²,
+   monotone growth with s, and convergence to ‖z‖² — are the Hilbert-space formalization of
+   the local-Fisher / Parseval-projection picture described in paper § 2.7. -/
 /-- (a) Обмеженість зверху: J(s) ≤ ‖z‖². -/
 theorem theorem2_a_upper_bound
     (b : HilbertBasis ℕ ℝ H) (z : H) (s : ℕ) :

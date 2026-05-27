@@ -1,4 +1,4 @@
-"""Run all Monte Carlo experiments (exp01-exp05).
+"""Run all Monte Carlo experiments (exp01-exp08).
 
 Usage:
     python run_all.py           # full run
@@ -26,6 +26,15 @@ from experiments.monte_carlo.exp04_far_control import (
 from experiments.monte_carlo.exp05_stopping_rules import (
     run_experiment as run_exp05,
 )
+from experiments.monte_carlo.exp06_oc_curves import (
+    run_experiment as run_exp06,
+)
+from experiments.monte_carlo.exp07_drift_verification import (
+    run_experiment as run_exp07,
+)
+from experiments.monte_carlo.exp08_f_misspecification import (
+    run_experiment as run_exp08,
+)
 
 
 def main():
@@ -47,11 +56,26 @@ def main():
         n_trials_small, n_trials_large = 20, 50
         n_trials_far = 100
         target_arl = 200
+        # exp06 OC curves (reduced smoke grid).
+        oc_dists = ["normal", "student_t5"]
+        oc_arl0s = [300.0, 600.0]
+        oc_kwargs = dict(n_fit=3000, n_calib=150, n_verify=200, n_add=600)
+        # exp07 drift verification.
+        drift_kwargs = dict(n_samples=10_000, oracle_n=40_000)
+        # exp08 F-misspecification.
+        fmis_kwargs = dict(n_trials=1000, n_calibration=1500,
+                           oracle_n=30000, calib_runs=250)
     else:
         n_cal, n_test = 1000, 500
         n_trials_small, n_trials_large = 100, 500
         n_trials_far = 1000
         target_arl = 500
+        oc_dists = ["normal", "student_t5", "laplace"]
+        oc_arl0s = [500.0, 1000.0]
+        oc_kwargs = dict(n_fit=5000, n_calib=400, n_verify=400, n_add=2000)
+        drift_kwargs = dict(n_samples=100_000, oracle_n=200_000)
+        fmis_kwargs = dict(n_trials=2000, n_calibration=2000,
+                           oracle_n=40000, calib_runs=350)
 
     experiments = [
         (
@@ -92,6 +116,25 @@ def main():
                 n_cal=n_cal, n_test=n_test,
                 n_trials=n_trials_large, target_arl=target_arl,
                 seed=args.seed, results_dir=args.results_dir,
+            ),
+        ),
+        (
+            "Exp06: OC Curves",
+            lambda: run_exp06(
+                dists=oc_dists, arl0s=oc_arl0s, seed=args.seed,
+                results_dir=args.results_dir, **oc_kwargs,
+            ),
+        ),
+        (
+            "Exp07: Drift Verification",
+            lambda: run_exp07(
+                seed=args.seed, results_dir=args.results_dir, **drift_kwargs,
+            ),
+        ),
+        (
+            "Exp08: F-Misspecification",
+            lambda: run_exp08(
+                seed=args.seed, results_dir=args.results_dir, **fmis_kwargs,
             ),
         ),
     ]

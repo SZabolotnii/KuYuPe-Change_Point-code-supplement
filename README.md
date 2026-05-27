@@ -10,7 +10,7 @@ Companion code for the paper:
 
 - **Moment-based LLR approximation** -- no PDF knowledge required, only moments up to order 2s
 - **Three basis types:** polynomial, fractional, logarithmic (plus Hermite)
-- **Kunchenko PE-criterion** for guaranteed FAR control via Chebyshev / Vysochansky-Petunin / Cantelli inequalities
+- **Kunchenko PE-criterion** for per-step FAR bounding via Chebyshev / Vysochansky-Petunin / Cantelli inequalities
 - **Works on heavy-tailed data** where classical methods fail (kurtosis > 20)
 - **O(s) per sample** -- suitable for edge/embedded devices
 - **Formal proofs in Lean 4** (Mathlib) for core theorems

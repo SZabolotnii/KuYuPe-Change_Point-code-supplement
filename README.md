@@ -2,7 +2,7 @@
 
 Companion code for the paper:
 
-> **"Generalized Stochastic Approximation of Log-Likelihood Ratio for Robust Sequential Change-Point Detection"**
+> **"Generalized Stochastic Approximation of the Log-Likelihood Ratio for Robust Sequential Change-Point Detection"**
 >
 > Serhii Zabolotnii
 

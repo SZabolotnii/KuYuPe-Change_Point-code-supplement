@@ -10,6 +10,8 @@ import GSA.Part2.GramSchmidt
 import GSA.Part2.GaussianLimit
 import GSA.Part2.Kunchenko
 import GSA.Part2.LinearSystem
+import GSA.Part2.Kernel
+import GSA.Part2.BridgeGap
 import GSA.Part2.UnimodalBounds
 import GSA.Part2.RobustPE
 import GSA.Part2.FAR_ADD
@@ -17,6 +19,8 @@ import GSA.Part2.Universality
 import GSA.Part2.InfoFunctional
 import GSA.Part2.Autocorrelation
 import GSA.Part2.Algorithm
+import GSA.Part2.MultiAlternative
+import GSA.Part2.MultiAlternativePE
 
 /-!
 # GSA.Part2 — точка входу розділу 2

@@ -105,7 +105,14 @@ real-data results.
 cd Lean && lake build GSA
 ```
 
-Key files: `InfoFunctional.lean` (Theorem 2), `Convergence.lean` (Theorem 4), `FAR_ADD.lean` (Theorem 6).
+Key files: `InfoFunctional.lean` (Parseval partial sums over an **orthonormal** basis — see the
+warning in its header: it does NOT certify Theorem 2 of the preprint), `BridgeGap.lean` (the
+finite-dimensional bridge `Yᵀ F⁻¹ Y = max_K (KᵀY)²/(KᵀFK)`, plus the explicit `NOT FORMALISED`
+inventory), `Convergence.lean` (Theorem 4), `FAR_ADD.lean` (Theorem 6).
+
+> **Correction 2026-08-23.** Theorem 2(a) and 2(c) of the preprint are false; only part (b),
+> monotonicity, holds. The complete-basis limit is `(1/c)·2Δ/(2−Δ)` in the triangular
+> discrimination, not the Jeffreys divergence. Do not describe Theorem 2 as "Lean-verified".
 
 ### Running Tests
 

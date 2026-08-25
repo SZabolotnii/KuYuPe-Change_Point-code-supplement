@@ -39,12 +39,67 @@ def HasMomentsUpTo (μ : Measure α) (X : α → ℝ) (k : ℕ) : Prop :=
     Це випливає з нерівності: |X|^j ≤ max(1, |X|^k) ≤ 1 + |X|^k
     та теореми про мажоровану збіжність.
 
-    Формальне доведення вимагає додаткових припущень про вимірність X,
-    тому приймаємо як аксіому стандартний результат теорії ймовірностей.
+    Вимірність окремого припущення не потребує, хоча довгий час здавалося,
+    що потребує, і саме через це твердження стояло аксіомою: `|X|^k` вимірна
+    вже тому, що інтегровна, а при `k ≥ 1` з неї відновлюється
+    `|X| = (|X|^k)^(1/k)` як композиція з неперервним `t ↦ t^(1/k)`;
+    випадок `k = 0` змушує `j = 0` і тривіальний.
 -/
-axiom hasMoment_of_higher [IsProbabilityMeasure μ]
+theorem hasMoment_of_higher [IsProbabilityMeasure μ]
     (X : α → ℝ) {k j : ℕ} (hjk : j ≤ k) (hk : HasMoment μ X k) :
-    HasMoment μ X j
+    HasMoment μ X j := by
+  -- unfold HasMoment: goal is Integrable (fun x => |X x|^j) μ
+  -- hk : Integrable (fun x => |X x|^k) μ
+  rcases Nat.eq_zero_or_pos k with (rfl | hk_pos)
+  · -- k = 0, so j = 0 (since j ≤ 0)
+    have hj0 : j = 0 := Nat.eq_zero_of_le_zero hjk
+    subst hj0
+    rw [HasMoment]
+    exact integrable_const _
+  · -- k > 0
+    have hk_ae : AEStronglyMeasurable (fun x => |X x| ^ (k : ℝ)) μ := by
+      -- hk gives Integrable of |X|^k (Nat.pow); convert to Real.rpow
+      simpa [Real.rpow_natCast] using hk.aestronglyMeasurable
+    have h_one_div_k_nonneg : 0 ≤ (1 : ℝ) / (k : ℝ) := by
+      positivity
+    have h_abs_ae : AEStronglyMeasurable (fun x => |X x|) μ := by
+      -- |X| = (|X|^k)^(1/k) as Real.rpow, and t ↦ t^(1/k) is continuous
+      have h_eq : (fun x => |X x|) = (fun x => ((|X x| ^ (k : ℝ)) ^ ((1 : ℝ) / (k : ℝ)))) := by
+        ext x
+        have h_nonneg : 0 ≤ |X x| := abs_nonneg _
+        calc
+          |X x| = |X x| ^ (1 : ℝ) := by simp
+          _ = |X x| ^ (((k : ℝ) * ((1 : ℝ) / (k : ℝ)))) := by
+            field_simp [show (k : ℝ) ≠ 0 from by exact_mod_cast hk_pos.ne.symm]
+          _ = ((|X x| ^ (k : ℝ)) ^ ((1 : ℝ) / (k : ℝ))) := by
+            rw [Real.rpow_mul h_nonneg (k : ℝ) ((1 : ℝ) / (k : ℝ))]
+      rw [h_eq]
+      exact Continuous.comp_aestronglyMeasurable
+        (Real.continuous_rpow_const h_one_div_k_nonneg) hk_ae
+    have hf_ae : AEStronglyMeasurable (fun x => |X x| ^ j) μ :=
+      h_abs_ae.pow j
+    have hg_int : Integrable (fun x => (1 : ℝ) + |X x| ^ k) μ := by
+      have h_const : Integrable (fun _ => (1 : ℝ)) μ := integrable_const _
+      -- hk is Integrable (|X|^k) with Nat.pow; need to convert for addition
+      have hk_nat : Integrable (fun x => |X x| ^ k) μ := hk
+      simpa [add_comm] using hk_nat.add h_const
+    have h_bound : ∀ x, |X x| ^ j ≤ (1 : ℝ) + |X x| ^ k := by
+      intro x
+      have h_nonneg : 0 ≤ |X x| := abs_nonneg _
+      have h_pow_nonneg : 0 ≤ |X x| ^ k := pow_nonneg h_nonneg k
+      by_cases h_le_one : |X x| ≤ 1
+      · have h_pow_le_one : |X x| ^ j ≤ 1 :=
+          pow_le_one₀ h_nonneg h_le_one
+        linarith
+      · have h_one_le : 1 ≤ |X x| := by linarith
+        have h_pow_le : |X x| ^ j ≤ |X x| ^ k :=
+          pow_le_pow_right₀ h_one_le hjk
+        linarith
+    have h_bound_ae : ∀ᵐ x ∂μ, ‖(|X x| ^ j : ℝ)‖ ≤ (1 : ℝ) + |X x| ^ k := by
+      filter_upwards [] with x
+      have h_nonneg_pow : 0 ≤ |X x| ^ j := pow_nonneg (abs_nonneg _) j
+      simpa [abs_of_nonneg h_nonneg_pow] using h_bound x
+    exact Integrable.mono' hg_int hf_ae h_bound_ae
 
 /-- Умова застосовності поліноміального базису порядку s:
     необхідно існування моменту 2s. -/

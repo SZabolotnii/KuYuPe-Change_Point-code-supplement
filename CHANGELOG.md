@@ -40,8 +40,19 @@ Targeted for v1.0.0 alongside the arxiv preprint v1 (Ukrainian).
   detectors coincide.
 - Docs: replaced "guaranteed FAR control" with the accurate "per-step FAR bound
   (proven at s=1) + Monte Carlo calibration for s≥2" (README, `docs/API.md`);
-  `J(s)` described as a local Fisher / χ² quantity converging to the Jeffreys
-  divergence rather than a "projection of the KL divergence".
+  `J(s)` described as a Hilbert-space quantity `Yᵀ F⁻¹ Y`, the maximum of the
+  Rayleigh quotient over the dictionary span.
+  **CORRECTION 2026-08-23:** earlier releases described `J(s)` as converging to the
+  Jeffreys divergence. That is FALSE. The complete-basis limit is
+  `(1/c)·2Δ/(2−Δ)`, where `Δ` is the triangular (Vincze–Le Cam) discrimination and
+  `c` is the constant in `F = c(C₀+C₁)`; it stands in no fixed order with respect to
+  the Jeffreys divergence. Theorem 2(a) `J(s) ≤ J_Jeffreys` is false as well; only
+  part (b), monotonicity, survives. Exact counterexample: Bernoulli(0.2, 0.8) gives
+  `J_∞ = 2.25` against a Jeffreys divergence of `1.2 ln 4 ≈ 1.664`. What the Lean
+  development proves is a correct abstract Parseval/projection theorem; the bridge to
+  the statistical identification was never formalised — see
+  `Lean/GSA/Part2/BridgeGap.lean` for the true bridge and for the explicit
+  `NOT FORMALISED` inventory.
 
 ### Added (Etap 2 — Q1-Q2 closure, 2026-05-04)
 - Bootstrap CI utilities (`src/benchmarks/bootstrap_ci.py`,

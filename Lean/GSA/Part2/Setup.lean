@@ -28,7 +28,16 @@ noncomputable def Expect (μ : Measure α) (f : α → ℝ) : ℝ :=
 noncomputable def LLR (μ1 μ0 : Measure α) : α → ℝ :=
   MeasureTheory.llr μ1 μ0
 
-/-- Симетрична дивергенція Джеффріса (в `ℝ≥0∞`). -/
+/-- Симетрична дивергенція Джеффріса (в `ℝ≥0∞`).
+
+⚠ Це означення, а не результат. **Жодна теорема цієї формалізації не пов'язує
+`JeffreysENN` з інформаційним функціоналом `J`** — ні з `GSA.Part2.J`
+(суми Парсеваля, `InfoFunctional.lean`), ні з `GSA.Part2.Jof`
+(`Yᵀ F⁻¹ Y`, `Kernel.lean`). Ототожнення границі `J` з `JeffreysENN` —
+Теорема 2(c) рукопису — хибне; правильна границя виражається через трикутну
+дискримінацію. Див. `GSA/Part2/BridgeGap.lean` і
+`erratum/ERRATUM_theorem2c_2026-08-23.md`. `JeffreysENN` лишається тут лише як
+термінологічний орієнтир і ніде не використовується. -/
 noncomputable def JeffreysENN (μ0 μ1 : Measure α) : ENNReal :=
   InformationTheory.klDiv μ1 μ0 + InformationTheory.klDiv μ0 μ1
 

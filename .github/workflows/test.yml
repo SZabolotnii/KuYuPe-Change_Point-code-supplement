@@ -54,17 +54,49 @@ jobs:
           restore-keys: |
             lean-
 
-      - name: Build Lean GSA library (must compile without sorry)
+      - name: Build Lean GSA library
         run: |
           lake update
           lake exe cache get || true
-          lake build GSA
+          lake build GSA 2>&1 | tee lean-build.log
 
-      - name: Verify zero `sorry` (research integrity guard)
+      - name: Verify proofs are complete (research integrity guard)
         run: |
-          # Allowed: 1 axiom (hasMoment_of_higher in PolynomialBasis.lean).
-          # Disallowed: any `sorry` in *.lean files we author.
-          if grep -rn "^[^-]*sorry" Lean/GSA/ --include='*.lean' | grep -v "^Lean/GSA/.*--"; then
-            echo "::error::sorry detected in committed Lean source"; exit 1
+          # Three checks. The first two read the source; only the third
+          # certifies anything, because `lake build` exits 0 with sorries in
+          # the tree and says nothing about what a theorem depends on.
+
+          # 1. No incomplete proof written in proof position. Anchored on
+          #    syntax rather than the bare word: Lean/GSA/Audit.lean discusses
+          #    `sorry` in its docstring, and a word-anywhere grep fails on it.
+          if grep -rnE '\bnative_decide\b|^#exit|(:=|by|<;>)[[:space:]]*(sorry|admit)\b|^[[:space:]]*(sorry|admit)[[:space:]]*$' \
+               Lean/GSA/ --include='*.lean'; then
+            echo "::error::incomplete proof in committed Lean source"; exit 1
           fi
-          echo "OK — zero sorry, well-typed."
+
+          # 2. No axiom at all. The layer used to declare one —
+          #    hasMoment_of_higher, moment monotonicity — on the belief that a
+          #    formal proof would need an extra measurability hypothesis. It
+          #    does not, and the proof is now in PolynomialBasis.lean. Zero is
+          #    therefore the correct bar, and any new axiom is a regression.
+          if grep -rn '^axiom ' Lean/GSA/ --include='*.lean'; then
+            echo "::error::axiom declared — the GSA layer must have none"; exit 1
+          fi
+
+          # 3. What the build actually printed. A theorem can contain no
+          #    `sorry` and still reach `sorryAx` through an import; checks 1
+          #    and 2 cannot see that, and this is also what would catch the
+          #    documented axiom becoming load-bearing.
+          if grep -q "declaration uses 'sorry'" lean-build.log; then
+            echo "::error::build reports declarations using sorry"; exit 1
+          fi
+          AUDITED=$(grep -c 'depends on axioms:' lean-build.log || true)
+          if [ "$AUDITED" -eq 0 ]; then
+            echo "::error::no '#print axioms' output — Lean/GSA/Audit.lean must be imported from Lean/GSA.lean"
+            exit 1
+          fi
+          if grep 'depends on axioms:' lean-build.log \
+             | grep -vE '\[(propext|Classical\.choice|Quot\.sound)(, (propext|Classical\.choice|Quot\.sound))*\]$'; then
+            echo "::error::a theorem depends on a non-standard axiom (see the line above)"; exit 1
+          fi
+          echo "OK — $AUDITED theorems audited, all within [propext, Classical.choice, Quot.sound]"

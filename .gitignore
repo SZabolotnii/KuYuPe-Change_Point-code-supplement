@@ -32,5 +32,12 @@ data/raw/
 # Generated results (reproducible via experiments/)
 results/
 
+# ...except the benchmark result files, which are NOT reproducible here: the
+# corpora they were run on need separate downloads, several behind registration.
+# They are the evidence behind experiments/real_data/README.md, and score.py
+# recomputes every number in it from them offline.
+!experiments/real_data/results/
+!experiments/real_data/results/**
+
 # Environment
 .env

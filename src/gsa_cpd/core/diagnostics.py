@@ -21,6 +21,12 @@ class GSADiagnostics:
         k0: Bias term.
         eta: Efficiency coefficient (E[L|H1] - E[L|H0]) / sqrt(Var[L|H0]).
         solver_method: Method used to solve FK=Y ("direct", "ridge", "svd").
+        basis_degenerate: True when the clip at +-phi_max leaves a basis column
+            constant on the calibration sample. That column carries no
+            information at any threshold, so the detector is inert rather than
+            conservative. Almost always means the series was not standardised.
+        standardize_loc: Location of the fitted standardising map (0.0 = none).
+        standardize_scale: Scale of the fitted standardising map (1.0 = none).
     """
     condition_number: float = 0.0
     J_s: float = 0.0
@@ -33,3 +39,6 @@ class GSADiagnostics:
     k0: float = 0.0
     eta: float = 0.0
     solver_method: str = ""
+    basis_degenerate: bool = False
+    standardize_loc: float = 0.0
+    standardize_scale: float = 1.0

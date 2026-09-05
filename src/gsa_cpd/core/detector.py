@@ -1,5 +1,7 @@
 """Unified GSA Detector for sequential change-point detection."""
 
+import warnings
+
 import numpy as np
 from typing import Optional
 
@@ -36,6 +38,20 @@ class GSADetector:
         ridge_lambda: Tikhonov regularization for FK=Y solver.
         phi_max: Clip basis function values to [-phi_max, phi_max].
         winsor_pct: Winsorization percentage for each tail (0 to disable).
+        standardize: Location-scale reduction applied to the observation before
+            the dictionary is evaluated, estimated on the calibration sample
+            alone. None (the default, and what the Monte-Carlo study of the
+            paper uses) feeds the raw observation to the dictionary; "robust"
+            uses the median and 1.4826 * MAD; "zscore" the mean and the standard
+            deviation.
+
+            **Use it on any series that is not already on a unit scale.** The
+            dictionary is a set of powers and every value is clipped to
+            [-phi_max, phi_max], so a series living outside that window has
+            every basis value clipped to the same constant: the dictionary then
+            carries no information, and the detector is inert at every threshold
+            rather than merely conservative. `fit` warns when that happens and
+            records it in `diagnostics.basis_degenerate`.
     """
 
     def __init__(
@@ -48,6 +64,7 @@ class GSADetector:
         ridge_lambda: float = 1e-6,
         phi_max: float = 10.0,
         winsor_pct: float = 0.05,
+        standardize: Optional[str] = None,
     ):
         self.basis = basis if isinstance(basis, BasisType) else BasisType(basis)
         self.degree = degree
@@ -58,6 +75,17 @@ class GSADetector:
         self.ridge_lambda = ridge_lambda
         self.phi_max = phi_max
         self.winsor_pct = winsor_pct
+        if standardize not in (None, "robust", "zscore"):
+            raise ValueError(
+                f"standardize must be None, 'robust' or 'zscore', got {standardize!r}"
+            )
+        self.standardize = standardize
+
+        # Location and scale of the standardising map, fitted in fit().
+        # (0.0, 1.0) is the identity.
+        self._loc: float = 0.0
+        self._scale: float = 1.0
+        self._basis_degenerate: bool = False
 
         # Fitted parameters
         self._coeffs: Optional[np.ndarray] = None
@@ -103,11 +131,13 @@ class GSADetector:
         Returns:
             self (for chaining).
         """
-        data = self._winsorize(calibration_data)
+        self._fit_standardizer(calibration_data)
+        data = self._standardize(self._winsorize(calibration_data))
         s = self.degree
 
         # 1. Compute basis function values
         B = evaluate_basis_matrix(data, s, self.basis, self.phi_max)
+        self._check_basis_degenerate(B)
 
         # 2. Moments under H0
         u = np.mean(B, axis=0)
@@ -120,7 +150,8 @@ class GSADetector:
             # General reference anomaly: empirical H1 moments from actual
             # post-change data (e.g. a pure shape change at matched mean/var).
             Bh1 = evaluate_basis_matrix(
-                self._winsorize(h1_data), s, self.basis, self.phi_max)
+                self._standardize(self._winsorize(h1_data)),
+                s, self.basis, self.phi_max)
             m = np.mean(Bh1, axis=0)
             Cov1 = np.cov(Bh1, rowvar=False) if s > 1 else np.array([[np.var(Bh1)]])
         else:
@@ -135,8 +166,14 @@ class GSADetector:
                     m[i] = u[i] + 0.1 * std_x
             Cov1 = Cov0 * (1.0 + delta)
 
-        # 4. Build and solve FK=Y
-        F = Cov0 + Cov1
+        # 4. Build and solve FK=Y with the paper's normalisation
+        # F = 0.5 * (C0 + C1) (eq:normal-system). Under it the surrogate
+        # Lambda = K^T (phi - 0.5 * (u + m)) is asymptotically on the
+        # log-likelihood-ratio scale: for local alternatives the exponential
+        # tilt root of E_0 exp(theta Lambda) = 1 satisfies theta_0 -> 1.
+        # Detection is unaffected (the threshold is calibrated to the realised
+        # H0 moments of the statistic); only the absolute value of J(s) changes.
+        F = 0.5 * (Cov0 + Cov1)
         Y = m - u
 
         K, cond_F, method = solve_fk_y(F, Y, ridge_lambda=self.ridge_lambda)
@@ -178,6 +215,9 @@ class GSADetector:
             k0=self._k0,
             eta=eta,
             solver_method=method,
+            basis_degenerate=self._basis_degenerate,
+            standardize_loc=self._loc,
+            standardize_scale=self._scale,
         )
 
         self._fitted = True
@@ -214,8 +254,57 @@ class GSADetector:
 
     def _compute_llr(self, x: float) -> float:
         """Compute approximate LLR increment Lambda(x)."""
-        v = evaluate_basis_vector(x, self.degree, self.basis, self.phi_max)
+        z = (x - self._loc) / self._scale
+        v = evaluate_basis_vector(z, self.degree, self.basis, self.phi_max)
         return self._k0 + float(np.dot(self._coeffs, v))
+
+    def _standardize(self, data: np.ndarray) -> np.ndarray:
+        """Apply the fitted location-scale map. Identity when standardize=None."""
+        return (data - self._loc) / self._scale
+
+    def _fit_standardizer(self, calibration_data: np.ndarray) -> None:
+        """Fit the location-scale map from the calibration sample alone.
+
+        A non-positive or non-finite scale estimate falls back to the next
+        cruder one and finally to the identity: a constant calibration sample
+        carries no scale, and inventing one would be worse than leaving the
+        observation alone.
+        """
+        if self.standardize is None:
+            self._loc, self._scale = 0.0, 1.0
+        elif self.standardize == "zscore":
+            self._loc = float(np.mean(calibration_data))
+            scale = float(np.std(calibration_data))
+            self._scale = scale if np.isfinite(scale) and scale > 0 else 1.0
+        else:  # "robust"
+            self._loc = float(np.median(calibration_data))
+            scale = 1.4826 * float(np.median(np.abs(calibration_data - self._loc)))
+            if not (np.isfinite(scale) and scale > 0):
+                scale = float(np.std(calibration_data))
+            self._scale = scale if np.isfinite(scale) and scale > 0 else 1.0
+
+        self._basis_degenerate = False
+
+    def _check_basis_degenerate(self, B: np.ndarray) -> None:
+        """Warn when the clip at +-phi_max has flattened a basis column.
+
+        A constant column carries no information at any threshold, so the
+        detector cannot alarm however the threshold is set.  Left silent this is
+        indistinguishable from a confident non-detection, which is exactly how
+        it goes unnoticed.
+        """
+        degenerate = bool(np.any(np.ptp(B, axis=0) < 1e-12))
+        self._basis_degenerate = degenerate
+        if degenerate:
+            warnings.warn(
+                "The dictionary is constant on the calibration sample: every "
+                f"basis value was clipped to +-phi_max={self.phi_max}. The "
+                "detector cannot raise an alarm at any threshold. Pass "
+                'standardize="robust" (or rescale the series yourself) so the '
+                "dictionary sees an observation on a unit scale.",
+                RuntimeWarning,
+                stacklevel=3,
+            )
 
     def _winsorize(self, data: np.ndarray) -> np.ndarray:
         """Apply Winsorization to calibration data."""

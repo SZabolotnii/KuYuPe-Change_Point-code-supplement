@@ -10,6 +10,56 @@ see `../VERSION.md` and `../reports/lean_theory_verification_report.md`.
 
 ## [Unreleased]
 
+### Fixed (2026-09-05)
+- **A run with no alarm is no longer a detection.** The benchmark harness scored
+  a stop at or after the change point as a detection, and the detector reported
+  the end of the test segment when no alarm ever fired, so a silent run was
+  recorded as a detection at the last sample with a delay equal to the distance
+  from the change point to the end of the segment. Baseline wrappers reported
+  `None` and were scored correctly, so only the GSA rows were affected. Under
+  the protocol the study states, the NSL-KDD detection rate is 0.00 rather than
+  1.00, SKAB 0.02 rather than 1.00 and TCPD 0.11 rather than 0.80. See
+  `experiments/real_data/README.md`; the numbers are recomputable offline with
+  `experiments/real_data/score.py`.
+- **README "Key Results" corrected.** The rows claiming "only working method
+  (NASA IMS Bearing)" and "FAR = 0%, DetRate = 100% (NSL-KDD)" were artefacts of
+  that defect and have been withdrawn, as has the heavy-tail highlight that
+  rested on them.
+
+### Added (2026-09-05)
+- `GSADetector(standardize=...)` — a location-scale reduction fitted on the
+  calibration sample and applied before the dictionary is evaluated
+  (`"robust"` = median and 1.4826·MAD, `"zscore"` = mean and standard
+  deviation). The default is `None`, so the Monte-Carlo study reproduces
+  unchanged.
+
+  Motivation: every basis value is clipped to `[-phi_max, phi_max]` with
+  `phi_max = 10`, so a series living outside that window has its whole
+  dictionary clipped to one constant. The dictionary then carries no
+  information and the detector is inert at **every** threshold rather than
+  merely conservative. This flattened the basis on 53 of 89 TCPD trials.
+- `fit()` now warns (`RuntimeWarning`) and sets
+  `diagnostics.basis_degenerate` when the clip has flattened a basis column, so
+  inability can no longer be mistaken for a confident non-detection.
+  `diagnostics.standardize_loc` / `standardize_scale` record the fitted map.
+- `experiments/real_data/` — the benchmark study in full: the stored result
+  files for six corpora, the same corpora re-run with the standardisation fix,
+  and `score.py`, which recomputes every reported number offline under both
+  scoring rules.
+- `tests/test_standardize.py` — five tests pinning the defect, the warning, the
+  fix, and the unchanged default.
+
+### Changed (2026-09-05)
+- The benchmark study is **no longer part of the article**. It was withdrawn on
+  2026-09-05 and lives here as a scope result: the detector holds its
+  false-alarm level where the change is large relative to the in-control
+  excursion of the statistic, and does not see a change of shape at an unchanged
+  mean on a short calibration segment. `arXiv:2605.23419` still reports the
+  uncorrected numbers.
+- Section references in the README now follow the current manuscript (the
+  Monte-Carlo study is its Section 7).
+
+
 Targeted for v1.0.0 alongside the arxiv preprint v1 (Ukrainian).
 
 ### Added (Sequential Analysis revision, 2026-05-25)

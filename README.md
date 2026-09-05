@@ -11,7 +11,9 @@ Companion code for the paper:
 - **Moment-based LLR approximation** -- no PDF knowledge required, only moments up to order 2s
 - **Three basis types:** polynomial, fractional, logarithmic (plus Hermite)
 - **Kunchenko PE-criterion** for per-step FAR bounding via Chebyshev / Vysochansky-Petunin / Cantelli inequalities
-- **Works on heavy-tailed data** where classical methods fail (kurtosis > 20)
+- **No shortest-delay claim.** On the benchmark corpora the detector is never the fastest, and on
+  a change of shape at an unchanged mean it does not fire at all; see
+  [`experiments/real_data/README.md`](experiments/real_data/README.md)
 - **O(s) per sample** -- suitable for edge/embedded devices
 - **Formal proofs in Lean 4** (Mathlib) for core theorems
 - **Modular stopping rules:** CUSUM, GRSh (Bayesian), Shiryaev-Roberts
@@ -75,7 +77,7 @@ print(f"Solver: {diag.solver_method}")
 > so that both the installed `gsa_cpd` package and the local `experiments`
 > package resolve correctly.
 
-### Monte Carlo Simulations (Section 4)
+### Monte Carlo Simulations (Section 7 of the article)
 
 ```bash
 python -m experiments.monte_carlo.run_all --quick    # fast (~5 min)
@@ -87,19 +89,32 @@ python -m experiments.monte_carlo.exp01_gaussian_limit --quick
 
 Results are written to timestamped directories under `results/`.
 
-### Real-Data Benchmarks (Section 5)
+### Benchmark study on measured streams
 
-The real-data results in Section 5 (NASA IMS Bearing, NSL-KDD, SKAB, TCPD,
-FRED macro series, PhysioNet 2019, etc.) rely on large external datasets,
-several of which require registration or per-dataset download. **Those
-benchmark scripts are not bundled in this supplement.** This repository
-focuses on the fully self-contained, immediately reproducible parts of the
-paper: the Monte Carlo study (Section 4), the formal proofs (Section 2), and
-the `gsa_cpd` package with its test suite. See the paper's Section 5 and
-[docs/DATASETS.md](docs/DATASETS.md) for dataset sources and the reported
-real-data results.
+**This study is not part of the article.** It was withdrawn from the manuscript
+on 2026-09-05 after a scoring defect was found in the harness that produced it:
+a run in which the detector never raised an alarm was recorded as a detection at
+the last sample of the test segment. Baselines were unaffected, so the defect
+inflated the GSA rows alone — on NSL-KDD the detection rate falls from 1.00 to
+**0.00** once the study's own protocol is applied.
 
-### Formal Proofs (Section 2)
+The corpora themselves (NASA IMS Bearing, NSL-KDD, SKAB, TCPD, FRED macro
+series, PhysioNet 2019, US RealInt) are large, and several need registration, so
+the loaders are still not bundled. The **result files are**, together with the
+script that re-scores them, so every corrected number is checkable offline:
+
+```bash
+python experiments/real_data/score.py             # both scoring rules, six corpora
+python experiments/real_data/score.py --set refit # after the standardisation fix
+```
+
+What the study establishes is a scope result — where the detector holds its
+false-alarm level and where it cannot see the change at all — not a superiority
+claim. Read [`experiments/real_data/README.md`](experiments/real_data/README.md)
+before citing any number from it; the earlier public version of the paper
+(`arXiv:2605.23419`) reports the uncorrected values.
+
+### Formal Proofs
 
 ```bash
 cd Lean && lake build GSA
@@ -122,16 +137,19 @@ pytest tests/ -v
 
 ## Key Results
 
-| Scenario | GSA Advantage | Reproduced here |
+| Scenario | Result | Reproduced here |
 |---|---|---|
 | Gaussian limit | S=1 poly = classical CUSUM (exact match, validated) | Yes (MC + test) |
 | Non-Gaussian (gamma_3 >= 8) | 30--36% ADD reduction vs. classical CUSUM | Yes (MC) |
-| Heavy tails (kurtosis > 20) | Only working method (NASA IMS Bearing dataset) | Paper Section 5 |
-| Cybersecurity (NSL-KDD) | FAR = 0%, DetRate = 100% | Paper Section 5 |
+| Measured streams | Scope result only: the level is held where the change is large relative to the statistic's in-control excursion (NAB EC2, FAR 0.10 at DR 0.43); a change of shape at an unchanged mean on a short calibration segment is not seen at all (NSL-KDD, SKAB) | Yes, from the stored result files |
 
-Rows marked "Paper Section 5" are real-data benchmarks reported in the paper;
-the synthetic (Monte Carlo) and Gaussian-limit results are reproducible
-directly from this repository (see above).
+> **Correction 2026-09-05.** Two rows previously claimed "only working method
+> (NASA IMS Bearing)" and "FAR = 0%, DetRate = 100% (NSL-KDD)". Both were
+> artefacts of the scoring defect described in
+> [`experiments/real_data/README.md`](experiments/real_data/README.md): a run in
+> which no alarm fired was counted as a detection. Under the protocol the study
+> states, the NSL-KDD detection rate is **0.00**, not 1.00, and the detector
+> raises no alarm on any of the 30 trials. Do not cite the old figures.
 
 ## Package Structure
 
@@ -161,8 +179,9 @@ src/gsa_cpd/
         distributions.py    # Distribution factory and sampling
         metrics.py          # FAR, ADD, J(s) evaluation metrics
 experiments/
-    monte_carlo/            # Section 4: Monte Carlo simulations (run via -m)
-    real_data/              # Section 5: notes only (datasets external; see paper)
+    monte_carlo/            # Section 7 of the article (run via -m)
+    real_data/              # benchmark study: result files + re-scoring script
+                            #   (not part of the article; corpora external)
 results/                    # Generated outputs (created on first run)
 tests/
     test_detector.py        # GSADetector unit tests

@@ -1,0 +1,2483 @@
+{
+  "timestamp": "2026-05-04T15:30:44.911772",
+  "purpose": "Etap 3 must-do \u2014 NASA IMS across 3 bearings \u00d7 n_seeds for bootstrap CI",
+  "n_datasets": 3,
+  "n_trials": 15,
+  "per_trial": [
+    {
+      "dataset": "ims_1st_test_ch4_kurtosis",
+      "feature": "kurtosis",
+      "cp_position": 1819,
+      "cp_type": "variance",
+      "calib_length": 1719,
+      "test_length": 437,
+      "cp_in_test": 100,
+      "characteristics": {
+        "n": 1719,
+        "mean": 0.6300420183859664,
+        "std": 0.2755364177149081,
+        "skewness": 2.057895834229219,
+        "kurtosis": 10.335874163874257,
+        "hill_index": 4.887742330515581,
+        "acf_lag1": 0.373263092097735,
+        "acf_lag5": 0.3578783011789282,
+        "acf_lag10": 0.41344222715985984
+      },
+      "detectors": {
+        "GSA-poly-S1": {
+          "name": "GSA-poly-S1",
+          "config": {
+            "basis_type": "poly",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 105,
+          "delay": 5,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.3398522909999997,
+          "diagnostics": {}
+        },
+        "GSA-frac-S1": {
+          "name": "GSA-frac-S1",
+          "config": {
+            "basis_type": "frac",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 105,
+          "delay": 5,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.3813018750000001,
+          "diagnostics": {}
+        },
+        "GSA-log-S2": {
+          "name": "GSA-log-S2",
+          "config": {
+            "basis_type": "log",
+            "degree": 2,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 106,
+          "delay": 6,
+          "is_false_alarm": false,
+          "wall_time_sec": 1.581491625,
+          "diagnostics": {}
+        },
+        "Sign-CUSUM": {
+          "name": "Sign-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 9,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00010470800000028646,
+          "diagnostics": {}
+        },
+        "MAD-CUSUM": {
+          "name": "MAD-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 25,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.0001368329999991147,
+          "diagnostics": {}
+        },
+        "EWMA-\u03bb0.1": {
+          "name": "EWMA-\u03bb0.1",
+          "config": {
+            "lambda": 0.1,
+            "L": 3.0
+          },
+          "detection_time": 37,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.0003536669999988362,
+          "diagnostics": {}
+        },
+        "BOCPD-StudentT": {
+          "name": "BOCPD-StudentT",
+          "config": {
+            "lambda": 200.0,
+            "alpha": 0.1,
+            "beta": 0.01,
+            "kappa": 1.0,
+            "run_threshold": 5,
+            "warmup": 20,
+            "likelihood": "Student-t (Adams-MacKay 2007)"
+          },
+          "detection_time": 36,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.03170062499999915,
+          "diagnostics": {}
+        },
+        "KernelCPD-rbf": {
+          "name": "KernelCPD-rbf",
+          "config": {
+            "kernel": "rbf",
+            "penalty": 10.0,
+            "min_size": 10,
+            "reference": "Harchaoui et al. 2008/2019"
+          },
+          "detection_time": 105,
+          "delay": 5,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.002509707999999833,
+          "diagnostics": {}
+        },
+        "PELT-pen10.0": {
+          "name": "PELT-pen10.0",
+          "config": {
+            "penalty": 10.0,
+            "model": "rbf"
+          },
+          "detection_time": 105,
+          "delay": 5,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.022089250000000504,
+          "diagnostics": {}
+        }
+      },
+      "bearing_test": "1st_test",
+      "seed_offset": 0,
+      "series_characteristics": {
+        "n": 2156,
+        "mean": 1.9774594733675421,
+        "std": 5.510309969379333,
+        "skewness": 6.501509727408281,
+        "kurtosis": 52.74595562750774
+      }
+    },
+    {
+      "dataset": "ims_1st_test_ch4_kurtosis",
+      "feature": "kurtosis",
+      "cp_position": 1819,
+      "cp_type": "variance",
+      "calib_length": 1719,
+      "test_length": 437,
+      "cp_in_test": 100,
+      "characteristics": {
+        "n": 1719,
+        "mean": 0.6300420183859664,
+        "std": 0.2755364177149081,
+        "skewness": 2.057895834229219,
+        "kurtosis": 10.335874163874257,
+        "hill_index": 4.887742330515581,
+        "acf_lag1": 0.373263092097735,
+        "acf_lag5": 0.3578783011789282,
+        "acf_lag10": 0.41344222715985984
+      },
+      "detectors": {
+        "GSA-poly-S1": {
+          "name": "GSA-poly-S1",
+          "config": {
+            "basis_type": "poly",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 107,
+          "delay": 7,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.263777417,
+          "diagnostics": {}
+        },
+        "GSA-frac-S1": {
+          "name": "GSA-frac-S1",
+          "config": {
+            "basis_type": "frac",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 106,
+          "delay": 6,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.5621280409999994,
+          "diagnostics": {}
+        },
+        "GSA-log-S2": {
+          "name": "GSA-log-S2",
+          "config": {
+            "basis_type": "log",
+            "degree": 2,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 103,
+          "delay": 3,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.6852008330000015,
+          "diagnostics": {}
+        },
+        "Sign-CUSUM": {
+          "name": "Sign-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 9,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00010695799999993483,
+          "diagnostics": {}
+        },
+        "MAD-CUSUM": {
+          "name": "MAD-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 25,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00013287499999847796,
+          "diagnostics": {}
+        },
+        "EWMA-\u03bb0.1": {
+          "name": "EWMA-\u03bb0.1",
+          "config": {
+            "lambda": 0.1,
+            "L": 3.0
+          },
+          "detection_time": 37,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.0003583330000012097,
+          "diagnostics": {}
+        },
+        "BOCPD-StudentT": {
+          "name": "BOCPD-StudentT",
+          "config": {
+            "lambda": 200.0,
+            "alpha": 0.1,
+            "beta": 0.01,
+            "kappa": 1.0,
+            "run_threshold": 5,
+            "warmup": 20,
+            "likelihood": "Student-t (Adams-MacKay 2007)"
+          },
+          "detection_time": 36,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.02653341699999956,
+          "diagnostics": {}
+        },
+        "KernelCPD-rbf": {
+          "name": "KernelCPD-rbf",
+          "config": {
+            "kernel": "rbf",
+            "penalty": 10.0,
+            "min_size": 10,
+            "reference": "Harchaoui et al. 2008/2019"
+          },
+          "detection_time": 105,
+          "delay": 5,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.0017021670000012534,
+          "diagnostics": {}
+        },
+        "PELT-pen10.0": {
+          "name": "PELT-pen10.0",
+          "config": {
+            "penalty": 10.0,
+            "model": "rbf"
+          },
+          "detection_time": 105,
+          "delay": 5,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.02221637499999929,
+          "diagnostics": {}
+        }
+      },
+      "bearing_test": "1st_test",
+      "seed_offset": 1,
+      "series_characteristics": {
+        "n": 2156,
+        "mean": 1.9774594733675421,
+        "std": 5.510309969379333,
+        "skewness": 6.501509727408281,
+        "kurtosis": 52.74595562750774
+      }
+    },
+    {
+      "dataset": "ims_1st_test_ch4_kurtosis",
+      "feature": "kurtosis",
+      "cp_position": 1819,
+      "cp_type": "variance",
+      "calib_length": 1719,
+      "test_length": 437,
+      "cp_in_test": 100,
+      "characteristics": {
+        "n": 1719,
+        "mean": 0.6300420183859664,
+        "std": 0.2755364177149081,
+        "skewness": 2.057895834229219,
+        "kurtosis": 10.335874163874257,
+        "hill_index": 4.887742330515581,
+        "acf_lag1": 0.373263092097735,
+        "acf_lag5": 0.3578783011789282,
+        "acf_lag10": 0.41344222715985984
+      },
+      "detectors": {
+        "GSA-poly-S1": {
+          "name": "GSA-poly-S1",
+          "config": {
+            "basis_type": "poly",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 106,
+          "delay": 6,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.42318387499999943,
+          "diagnostics": {}
+        },
+        "GSA-frac-S1": {
+          "name": "GSA-frac-S1",
+          "config": {
+            "basis_type": "frac",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 106,
+          "delay": 6,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.5681275839999991,
+          "diagnostics": {}
+        },
+        "GSA-log-S2": {
+          "name": "GSA-log-S2",
+          "config": {
+            "basis_type": "log",
+            "degree": 2,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 106,
+          "delay": 6,
+          "is_false_alarm": false,
+          "wall_time_sec": 1.5882769160000016,
+          "diagnostics": {}
+        },
+        "Sign-CUSUM": {
+          "name": "Sign-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 9,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00010308299999906012,
+          "diagnostics": {}
+        },
+        "MAD-CUSUM": {
+          "name": "MAD-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 25,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00013266699999903153,
+          "diagnostics": {}
+        },
+        "EWMA-\u03bb0.1": {
+          "name": "EWMA-\u03bb0.1",
+          "config": {
+            "lambda": 0.1,
+            "L": 3.0
+          },
+          "detection_time": 37,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00035812499999821057,
+          "diagnostics": {}
+        },
+        "BOCPD-StudentT": {
+          "name": "BOCPD-StudentT",
+          "config": {
+            "lambda": 200.0,
+            "alpha": 0.1,
+            "beta": 0.01,
+            "kappa": 1.0,
+            "run_threshold": 5,
+            "warmup": 20,
+            "likelihood": "Student-t (Adams-MacKay 2007)"
+          },
+          "detection_time": 36,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.026291249999999877,
+          "diagnostics": {}
+        },
+        "KernelCPD-rbf": {
+          "name": "KernelCPD-rbf",
+          "config": {
+            "kernel": "rbf",
+            "penalty": 10.0,
+            "min_size": 10,
+            "reference": "Harchaoui et al. 2008/2019"
+          },
+          "detection_time": 105,
+          "delay": 5,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.0018515410000006227,
+          "diagnostics": {}
+        },
+        "PELT-pen10.0": {
+          "name": "PELT-pen10.0",
+          "config": {
+            "penalty": 10.0,
+            "model": "rbf"
+          },
+          "detection_time": 105,
+          "delay": 5,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.022227374999999938,
+          "diagnostics": {}
+        }
+      },
+      "bearing_test": "1st_test",
+      "seed_offset": 2,
+      "series_characteristics": {
+        "n": 2156,
+        "mean": 1.9774594733675421,
+        "std": 5.510309969379333,
+        "skewness": 6.501509727408281,
+        "kurtosis": 52.74595562750774
+      }
+    },
+    {
+      "dataset": "ims_1st_test_ch4_kurtosis",
+      "feature": "kurtosis",
+      "cp_position": 1819,
+      "cp_type": "variance",
+      "calib_length": 1719,
+      "test_length": 437,
+      "cp_in_test": 100,
+      "characteristics": {
+        "n": 1719,
+        "mean": 0.6300420183859664,
+        "std": 0.2755364177149081,
+        "skewness": 2.057895834229219,
+        "kurtosis": 10.335874163874257,
+        "hill_index": 4.887742330515581,
+        "acf_lag1": 0.373263092097735,
+        "acf_lag5": 0.3578783011789282,
+        "acf_lag10": 0.41344222715985984
+      },
+      "detectors": {
+        "GSA-poly-S1": {
+          "name": "GSA-poly-S1",
+          "config": {
+            "basis_type": "poly",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 107,
+          "delay": 7,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.2646927080000019,
+          "diagnostics": {}
+        },
+        "GSA-frac-S1": {
+          "name": "GSA-frac-S1",
+          "config": {
+            "basis_type": "frac",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 107,
+          "delay": 7,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.29433920800000024,
+          "diagnostics": {}
+        },
+        "GSA-log-S2": {
+          "name": "GSA-log-S2",
+          "config": {
+            "basis_type": "log",
+            "degree": 2,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 105,
+          "delay": 5,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.8947468329999992,
+          "diagnostics": {}
+        },
+        "Sign-CUSUM": {
+          "name": "Sign-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 9,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00010012500000300406,
+          "diagnostics": {}
+        },
+        "MAD-CUSUM": {
+          "name": "MAD-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 25,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00013649999999998386,
+          "diagnostics": {}
+        },
+        "EWMA-\u03bb0.1": {
+          "name": "EWMA-\u03bb0.1",
+          "config": {
+            "lambda": 0.1,
+            "L": 3.0
+          },
+          "detection_time": 37,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00036179199999963885,
+          "diagnostics": {}
+        },
+        "BOCPD-StudentT": {
+          "name": "BOCPD-StudentT",
+          "config": {
+            "lambda": 200.0,
+            "alpha": 0.1,
+            "beta": 0.01,
+            "kappa": 1.0,
+            "run_threshold": 5,
+            "warmup": 20,
+            "likelihood": "Student-t (Adams-MacKay 2007)"
+          },
+          "detection_time": 36,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.025827041999999523,
+          "diagnostics": {}
+        },
+        "KernelCPD-rbf": {
+          "name": "KernelCPD-rbf",
+          "config": {
+            "kernel": "rbf",
+            "penalty": 10.0,
+            "min_size": 10,
+            "reference": "Harchaoui et al. 2008/2019"
+          },
+          "detection_time": 105,
+          "delay": 5,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.0016574170000005495,
+          "diagnostics": {}
+        },
+        "PELT-pen10.0": {
+          "name": "PELT-pen10.0",
+          "config": {
+            "penalty": 10.0,
+            "model": "rbf"
+          },
+          "detection_time": 105,
+          "delay": 5,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.021859084000002582,
+          "diagnostics": {}
+        }
+      },
+      "bearing_test": "1st_test",
+      "seed_offset": 3,
+      "series_characteristics": {
+        "n": 2156,
+        "mean": 1.9774594733675421,
+        "std": 5.510309969379333,
+        "skewness": 6.501509727408281,
+        "kurtosis": 52.74595562750774
+      }
+    },
+    {
+      "dataset": "ims_1st_test_ch4_kurtosis",
+      "feature": "kurtosis",
+      "cp_position": 1819,
+      "cp_type": "variance",
+      "calib_length": 1719,
+      "test_length": 437,
+      "cp_in_test": 100,
+      "characteristics": {
+        "n": 1719,
+        "mean": 0.6300420183859664,
+        "std": 0.2755364177149081,
+        "skewness": 2.057895834229219,
+        "kurtosis": 10.335874163874257,
+        "hill_index": 4.887742330515581,
+        "acf_lag1": 0.373263092097735,
+        "acf_lag5": 0.3578783011789282,
+        "acf_lag10": 0.41344222715985984
+      },
+      "detectors": {
+        "GSA-poly-S1": {
+          "name": "GSA-poly-S1",
+          "config": {
+            "basis_type": "poly",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 106,
+          "delay": 6,
+          "is_false_alarm": false,
+          "wall_time_sec": 1.1694588750000001,
+          "diagnostics": {}
+        },
+        "GSA-frac-S1": {
+          "name": "GSA-frac-S1",
+          "config": {
+            "basis_type": "frac",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 106,
+          "delay": 6,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.6458447920000019,
+          "diagnostics": {}
+        },
+        "GSA-log-S2": {
+          "name": "GSA-log-S2",
+          "config": {
+            "basis_type": "log",
+            "degree": 2,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 106,
+          "delay": 6,
+          "is_false_alarm": false,
+          "wall_time_sec": 1.5866144579999997,
+          "diagnostics": {}
+        },
+        "Sign-CUSUM": {
+          "name": "Sign-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 9,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00010508400000119877,
+          "diagnostics": {}
+        },
+        "MAD-CUSUM": {
+          "name": "MAD-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 25,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00013720900000180336,
+          "diagnostics": {}
+        },
+        "EWMA-\u03bb0.1": {
+          "name": "EWMA-\u03bb0.1",
+          "config": {
+            "lambda": 0.1,
+            "L": 3.0
+          },
+          "detection_time": 37,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00036174999999971647,
+          "diagnostics": {}
+        },
+        "BOCPD-StudentT": {
+          "name": "BOCPD-StudentT",
+          "config": {
+            "lambda": 200.0,
+            "alpha": 0.1,
+            "beta": 0.01,
+            "kappa": 1.0,
+            "run_threshold": 5,
+            "warmup": 20,
+            "likelihood": "Student-t (Adams-MacKay 2007)"
+          },
+          "detection_time": 36,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.025789625000001593,
+          "diagnostics": {}
+        },
+        "KernelCPD-rbf": {
+          "name": "KernelCPD-rbf",
+          "config": {
+            "kernel": "rbf",
+            "penalty": 10.0,
+            "min_size": 10,
+            "reference": "Harchaoui et al. 2008/2019"
+          },
+          "detection_time": 105,
+          "delay": 5,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.0016826670000007482,
+          "diagnostics": {}
+        },
+        "PELT-pen10.0": {
+          "name": "PELT-pen10.0",
+          "config": {
+            "penalty": 10.0,
+            "model": "rbf"
+          },
+          "detection_time": 105,
+          "delay": 5,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.021966459000001493,
+          "diagnostics": {}
+        }
+      },
+      "bearing_test": "1st_test",
+      "seed_offset": 4,
+      "series_characteristics": {
+        "n": 2156,
+        "mean": 1.9774594733675421,
+        "std": 5.510309969379333,
+        "skewness": 6.501509727408281,
+        "kurtosis": 52.74595562750774
+      }
+    },
+    {
+      "dataset": "ims_2nd_test_ch0_kurtosis",
+      "feature": "kurtosis",
+      "cp_position": 647,
+      "cp_type": "variance",
+      "calib_length": 547,
+      "test_length": 437,
+      "cp_in_test": 100,
+      "characteristics": {
+        "n": 547,
+        "mean": 0.4172531154518608,
+        "std": 0.09407283947036586,
+        "skewness": 1.1879104794157438,
+        "kurtosis": 6.52026975031972,
+        "hill_index": 9.57212844403246,
+        "acf_lag1": 0.0733655328625552,
+        "acf_lag5": 0.008433085582419326,
+        "acf_lag10": 0.11635725240183013
+      },
+      "detectors": {
+        "GSA-poly-S1": {
+          "name": "GSA-poly-S1",
+          "config": {
+            "basis_type": "poly",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 437,
+          "delay": 337,
+          "is_false_alarm": false,
+          "wall_time_sec": 1.345640000000003,
+          "diagnostics": {}
+        },
+        "GSA-frac-S1": {
+          "name": "GSA-frac-S1",
+          "config": {
+            "basis_type": "frac",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 437,
+          "delay": 337,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.2922743330000017,
+          "diagnostics": {}
+        },
+        "GSA-log-S2": {
+          "name": "GSA-log-S2",
+          "config": {
+            "basis_type": "log",
+            "degree": 2,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 437,
+          "delay": 337,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.6846149580000009,
+          "diagnostics": {}
+        },
+        "Sign-CUSUM": {
+          "name": "Sign-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 6,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00010650000000111959,
+          "diagnostics": {}
+        },
+        "MAD-CUSUM": {
+          "name": "MAD-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 25,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00013629200000053743,
+          "diagnostics": {}
+        },
+        "EWMA-\u03bb0.1": {
+          "name": "EWMA-\u03bb0.1",
+          "config": {
+            "lambda": 0.1,
+            "L": 3.0
+          },
+          "detection_time": 36,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.0003973339999987502,
+          "diagnostics": {}
+        },
+        "BOCPD-StudentT": {
+          "name": "BOCPD-StudentT",
+          "config": {
+            "lambda": 200.0,
+            "alpha": 0.1,
+            "beta": 0.01,
+            "kappa": 1.0,
+            "run_threshold": 5,
+            "warmup": 20,
+            "likelihood": "Student-t (Adams-MacKay 2007)"
+          },
+          "detection_time": 101,
+          "delay": 1,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.025836292000001038,
+          "diagnostics": {}
+        },
+        "KernelCPD-rbf": {
+          "name": "KernelCPD-rbf",
+          "config": {
+            "kernel": "rbf",
+            "penalty": 10.0,
+            "min_size": 10,
+            "reference": "Harchaoui et al. 2008/2019"
+          },
+          "detection_time": 100,
+          "delay": 0,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.0011237500000014222,
+          "diagnostics": {}
+        },
+        "PELT-pen10.0": {
+          "name": "PELT-pen10.0",
+          "config": {
+            "penalty": 10.0,
+            "model": "rbf"
+          },
+          "detection_time": 100,
+          "delay": 0,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.005159667000000923,
+          "diagnostics": {}
+        }
+      },
+      "bearing_test": "2nd_test",
+      "seed_offset": 0,
+      "series_characteristics": {
+        "n": 984,
+        "mean": 0.8271384512383707,
+        "std": 0.9652962609271559,
+        "skewness": 6.5352833099490395,
+        "kurtosis": 70.16174002451284
+      }
+    },
+    {
+      "dataset": "ims_2nd_test_ch0_kurtosis",
+      "feature": "kurtosis",
+      "cp_position": 647,
+      "cp_type": "variance",
+      "calib_length": 547,
+      "test_length": 437,
+      "cp_in_test": 100,
+      "characteristics": {
+        "n": 547,
+        "mean": 0.4172531154518608,
+        "std": 0.09407283947036586,
+        "skewness": 1.1879104794157438,
+        "kurtosis": 6.52026975031972,
+        "hill_index": 9.57212844403246,
+        "acf_lag1": 0.0733655328625552,
+        "acf_lag5": 0.008433085582419326,
+        "acf_lag10": 0.11635725240183013
+      },
+      "detectors": {
+        "GSA-poly-S1": {
+          "name": "GSA-poly-S1",
+          "config": {
+            "basis_type": "poly",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 437,
+          "delay": 337,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.4262993339999994,
+          "diagnostics": {}
+        },
+        "GSA-frac-S1": {
+          "name": "GSA-frac-S1",
+          "config": {
+            "basis_type": "frac",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 437,
+          "delay": 337,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.5658059170000023,
+          "diagnostics": {}
+        },
+        "GSA-log-S2": {
+          "name": "GSA-log-S2",
+          "config": {
+            "basis_type": "log",
+            "degree": 2,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 437,
+          "delay": 337,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.9185240409999977,
+          "diagnostics": {}
+        },
+        "Sign-CUSUM": {
+          "name": "Sign-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 6,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00010245899999716812,
+          "diagnostics": {}
+        },
+        "MAD-CUSUM": {
+          "name": "MAD-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 25,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00012104199999996013,
+          "diagnostics": {}
+        },
+        "EWMA-\u03bb0.1": {
+          "name": "EWMA-\u03bb0.1",
+          "config": {
+            "lambda": 0.1,
+            "L": 3.0
+          },
+          "detection_time": 36,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.0003548749999993106,
+          "diagnostics": {}
+        },
+        "BOCPD-StudentT": {
+          "name": "BOCPD-StudentT",
+          "config": {
+            "lambda": 200.0,
+            "alpha": 0.1,
+            "beta": 0.01,
+            "kappa": 1.0,
+            "run_threshold": 5,
+            "warmup": 20,
+            "likelihood": "Student-t (Adams-MacKay 2007)"
+          },
+          "detection_time": 101,
+          "delay": 1,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.025720291999999034,
+          "diagnostics": {}
+        },
+        "KernelCPD-rbf": {
+          "name": "KernelCPD-rbf",
+          "config": {
+            "kernel": "rbf",
+            "penalty": 10.0,
+            "min_size": 10,
+            "reference": "Harchaoui et al. 2008/2019"
+          },
+          "detection_time": 100,
+          "delay": 0,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.0011291250000020625,
+          "diagnostics": {}
+        },
+        "PELT-pen10.0": {
+          "name": "PELT-pen10.0",
+          "config": {
+            "penalty": 10.0,
+            "model": "rbf"
+          },
+          "detection_time": 100,
+          "delay": 0,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.0050927089999994735,
+          "diagnostics": {}
+        }
+      },
+      "bearing_test": "2nd_test",
+      "seed_offset": 1,
+      "series_characteristics": {
+        "n": 984,
+        "mean": 0.8271384512383707,
+        "std": 0.9652962609271559,
+        "skewness": 6.5352833099490395,
+        "kurtosis": 70.16174002451284
+      }
+    },
+    {
+      "dataset": "ims_2nd_test_ch0_kurtosis",
+      "feature": "kurtosis",
+      "cp_position": 647,
+      "cp_type": "variance",
+      "calib_length": 547,
+      "test_length": 437,
+      "cp_in_test": 100,
+      "characteristics": {
+        "n": 547,
+        "mean": 0.4172531154518608,
+        "std": 0.09407283947036586,
+        "skewness": 1.1879104794157438,
+        "kurtosis": 6.52026975031972,
+        "hill_index": 9.57212844403246,
+        "acf_lag1": 0.0733655328625552,
+        "acf_lag5": 0.008433085582419326,
+        "acf_lag10": 0.11635725240183013
+      },
+      "detectors": {
+        "GSA-poly-S1": {
+          "name": "GSA-poly-S1",
+          "config": {
+            "basis_type": "poly",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 437,
+          "delay": 337,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.257834625000001,
+          "diagnostics": {}
+        },
+        "GSA-frac-S1": {
+          "name": "GSA-frac-S1",
+          "config": {
+            "basis_type": "frac",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 437,
+          "delay": 337,
+          "is_false_alarm": false,
+          "wall_time_sec": 1.221580207999999,
+          "diagnostics": {}
+        },
+        "GSA-log-S2": {
+          "name": "GSA-log-S2",
+          "config": {
+            "basis_type": "log",
+            "degree": 2,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 437,
+          "delay": 337,
+          "is_false_alarm": false,
+          "wall_time_sec": 1.3795487080000015,
+          "diagnostics": {}
+        },
+        "Sign-CUSUM": {
+          "name": "Sign-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 6,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00010362500000127284,
+          "diagnostics": {}
+        },
+        "MAD-CUSUM": {
+          "name": "MAD-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 25,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00012408399999941366,
+          "diagnostics": {}
+        },
+        "EWMA-\u03bb0.1": {
+          "name": "EWMA-\u03bb0.1",
+          "config": {
+            "lambda": 0.1,
+            "L": 3.0
+          },
+          "detection_time": 36,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.0003575409999996282,
+          "diagnostics": {}
+        },
+        "BOCPD-StudentT": {
+          "name": "BOCPD-StudentT",
+          "config": {
+            "lambda": 200.0,
+            "alpha": 0.1,
+            "beta": 0.01,
+            "kappa": 1.0,
+            "run_threshold": 5,
+            "warmup": 20,
+            "likelihood": "Student-t (Adams-MacKay 2007)"
+          },
+          "detection_time": 101,
+          "delay": 1,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.0257785410000011,
+          "diagnostics": {}
+        },
+        "KernelCPD-rbf": {
+          "name": "KernelCPD-rbf",
+          "config": {
+            "kernel": "rbf",
+            "penalty": 10.0,
+            "min_size": 10,
+            "reference": "Harchaoui et al. 2008/2019"
+          },
+          "detection_time": 100,
+          "delay": 0,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.0011347080000021492,
+          "diagnostics": {}
+        },
+        "PELT-pen10.0": {
+          "name": "PELT-pen10.0",
+          "config": {
+            "penalty": 10.0,
+            "model": "rbf"
+          },
+          "detection_time": 100,
+          "delay": 0,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.005116583999999591,
+          "diagnostics": {}
+        }
+      },
+      "bearing_test": "2nd_test",
+      "seed_offset": 2,
+      "series_characteristics": {
+        "n": 984,
+        "mean": 0.8271384512383707,
+        "std": 0.9652962609271559,
+        "skewness": 6.5352833099490395,
+        "kurtosis": 70.16174002451284
+      }
+    },
+    {
+      "dataset": "ims_2nd_test_ch0_kurtosis",
+      "feature": "kurtosis",
+      "cp_position": 647,
+      "cp_type": "variance",
+      "calib_length": 547,
+      "test_length": 437,
+      "cp_in_test": 100,
+      "characteristics": {
+        "n": 547,
+        "mean": 0.4172531154518608,
+        "std": 0.09407283947036586,
+        "skewness": 1.1879104794157438,
+        "kurtosis": 6.52026975031972,
+        "hill_index": 9.57212844403246,
+        "acf_lag1": 0.0733655328625552,
+        "acf_lag5": 0.008433085582419326,
+        "acf_lag10": 0.11635725240183013
+      },
+      "detectors": {
+        "GSA-poly-S1": {
+          "name": "GSA-poly-S1",
+          "config": {
+            "basis_type": "poly",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 437,
+          "delay": 337,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.2572835409999996,
+          "diagnostics": {}
+        },
+        "GSA-frac-S1": {
+          "name": "GSA-frac-S1",
+          "config": {
+            "basis_type": "frac",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 437,
+          "delay": 337,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.5606691670000004,
+          "diagnostics": {}
+        },
+        "GSA-log-S2": {
+          "name": "GSA-log-S2",
+          "config": {
+            "basis_type": "log",
+            "degree": 2,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 437,
+          "delay": 337,
+          "is_false_alarm": false,
+          "wall_time_sec": 1.827257000000003,
+          "diagnostics": {}
+        },
+        "Sign-CUSUM": {
+          "name": "Sign-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 6,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00013666699999959064,
+          "diagnostics": {}
+        },
+        "MAD-CUSUM": {
+          "name": "MAD-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 25,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.0001494169999958217,
+          "diagnostics": {}
+        },
+        "EWMA-\u03bb0.1": {
+          "name": "EWMA-\u03bb0.1",
+          "config": {
+            "lambda": 0.1,
+            "L": 3.0
+          },
+          "detection_time": 36,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00035612499999615466,
+          "diagnostics": {}
+        },
+        "BOCPD-StudentT": {
+          "name": "BOCPD-StudentT",
+          "config": {
+            "lambda": 200.0,
+            "alpha": 0.1,
+            "beta": 0.01,
+            "kappa": 1.0,
+            "run_threshold": 5,
+            "warmup": 20,
+            "likelihood": "Student-t (Adams-MacKay 2007)"
+          },
+          "detection_time": 101,
+          "delay": 1,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.02575195800000074,
+          "diagnostics": {}
+        },
+        "KernelCPD-rbf": {
+          "name": "KernelCPD-rbf",
+          "config": {
+            "kernel": "rbf",
+            "penalty": 10.0,
+            "min_size": 10,
+            "reference": "Harchaoui et al. 2008/2019"
+          },
+          "detection_time": 100,
+          "delay": 0,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.0011143750000002228,
+          "diagnostics": {}
+        },
+        "PELT-pen10.0": {
+          "name": "PELT-pen10.0",
+          "config": {
+            "penalty": 10.0,
+            "model": "rbf"
+          },
+          "detection_time": 100,
+          "delay": 0,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.005240041000000417,
+          "diagnostics": {}
+        }
+      },
+      "bearing_test": "2nd_test",
+      "seed_offset": 3,
+      "series_characteristics": {
+        "n": 984,
+        "mean": 0.8271384512383707,
+        "std": 0.9652962609271559,
+        "skewness": 6.5352833099490395,
+        "kurtosis": 70.16174002451284
+      }
+    },
+    {
+      "dataset": "ims_2nd_test_ch0_kurtosis",
+      "feature": "kurtosis",
+      "cp_position": 647,
+      "cp_type": "variance",
+      "calib_length": 547,
+      "test_length": 437,
+      "cp_in_test": 100,
+      "characteristics": {
+        "n": 547,
+        "mean": 0.4172531154518608,
+        "std": 0.09407283947036586,
+        "skewness": 1.1879104794157438,
+        "kurtosis": 6.52026975031972,
+        "hill_index": 9.57212844403246,
+        "acf_lag1": 0.0733655328625552,
+        "acf_lag5": 0.008433085582419326,
+        "acf_lag10": 0.11635725240183013
+      },
+      "detectors": {
+        "GSA-poly-S1": {
+          "name": "GSA-poly-S1",
+          "config": {
+            "basis_type": "poly",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 437,
+          "delay": 337,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.35464612499999504,
+          "diagnostics": {}
+        },
+        "GSA-frac-S1": {
+          "name": "GSA-frac-S1",
+          "config": {
+            "basis_type": "frac",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 437,
+          "delay": 337,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.5705874579999985,
+          "diagnostics": {}
+        },
+        "GSA-log-S2": {
+          "name": "GSA-log-S2",
+          "config": {
+            "basis_type": "log",
+            "degree": 2,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 437,
+          "delay": 337,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.6853382499999938,
+          "diagnostics": {}
+        },
+        "Sign-CUSUM": {
+          "name": "Sign-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 6,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00010245900000427355,
+          "diagnostics": {}
+        },
+        "MAD-CUSUM": {
+          "name": "MAD-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 25,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00012154200000225046,
+          "diagnostics": {}
+        },
+        "EWMA-\u03bb0.1": {
+          "name": "EWMA-\u03bb0.1",
+          "config": {
+            "lambda": 0.1,
+            "L": 3.0
+          },
+          "detection_time": 36,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00035950000000184446,
+          "diagnostics": {}
+        },
+        "BOCPD-StudentT": {
+          "name": "BOCPD-StudentT",
+          "config": {
+            "lambda": 200.0,
+            "alpha": 0.1,
+            "beta": 0.01,
+            "kappa": 1.0,
+            "run_threshold": 5,
+            "warmup": 20,
+            "likelihood": "Student-t (Adams-MacKay 2007)"
+          },
+          "detection_time": 101,
+          "delay": 1,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.025866374999999664,
+          "diagnostics": {}
+        },
+        "KernelCPD-rbf": {
+          "name": "KernelCPD-rbf",
+          "config": {
+            "kernel": "rbf",
+            "penalty": 10.0,
+            "min_size": 10,
+            "reference": "Harchaoui et al. 2008/2019"
+          },
+          "detection_time": 100,
+          "delay": 0,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.0011215839999962895,
+          "diagnostics": {}
+        },
+        "PELT-pen10.0": {
+          "name": "PELT-pen10.0",
+          "config": {
+            "penalty": 10.0,
+            "model": "rbf"
+          },
+          "detection_time": 100,
+          "delay": 0,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.005105458999999257,
+          "diagnostics": {}
+        }
+      },
+      "bearing_test": "2nd_test",
+      "seed_offset": 4,
+      "series_characteristics": {
+        "n": 984,
+        "mean": 0.8271384512383707,
+        "std": 0.9652962609271559,
+        "skewness": 6.5352833099490395,
+        "kurtosis": 70.16174002451284
+      }
+    },
+    {
+      "dataset": "ims_3rd_test_ch2_kurtosis",
+      "feature": "kurtosis",
+      "cp_position": 6160,
+      "cp_type": "variance",
+      "calib_length": 6060,
+      "test_length": 264,
+      "cp_in_test": 100,
+      "characteristics": {
+        "n": 6060,
+        "mean": 0.12436073484152897,
+        "std": 0.07671646741167985,
+        "skewness": 2.928167951749314,
+        "kurtosis": 26.33010833573908,
+        "hill_index": 4.004286851546323,
+        "acf_lag1": 0.4219045856732881,
+        "acf_lag5": 0.4194629067162823,
+        "acf_lag10": 0.42249150970755583
+      },
+      "detectors": {
+        "GSA-poly-S1": {
+          "name": "GSA-poly-S1",
+          "config": {
+            "basis_type": "poly",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 231,
+          "delay": 131,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.9996201249999999,
+          "diagnostics": {}
+        },
+        "GSA-frac-S1": {
+          "name": "GSA-frac-S1",
+          "config": {
+            "basis_type": "frac",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 231,
+          "delay": 131,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.6806448339999989,
+          "diagnostics": {}
+        },
+        "GSA-log-S2": {
+          "name": "GSA-log-S2",
+          "config": {
+            "basis_type": "log",
+            "degree": 2,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 231,
+          "delay": 131,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.5643090829999977,
+          "diagnostics": {}
+        },
+        "Sign-CUSUM": {
+          "name": "Sign-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 15,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.0001490000000003988,
+          "diagnostics": {}
+        },
+        "MAD-CUSUM": {
+          "name": "MAD-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 24,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00020433299999922383,
+          "diagnostics": {}
+        },
+        "EWMA-\u03bb0.1": {
+          "name": "EWMA-\u03bb0.1",
+          "config": {
+            "lambda": 0.1,
+            "L": 3.0
+          },
+          "detection_time": 99,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.0002442920000049753,
+          "diagnostics": {}
+        },
+        "BOCPD-StudentT": {
+          "name": "BOCPD-StudentT",
+          "config": {
+            "lambda": 200.0,
+            "alpha": 0.1,
+            "beta": 0.01,
+            "kappa": 1.0,
+            "run_threshold": 5,
+            "warmup": 20,
+            "likelihood": "Student-t (Adams-MacKay 2007)"
+          },
+          "detection_time": 101,
+          "delay": 1,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.01625120900000354,
+          "diagnostics": {}
+        },
+        "KernelCPD-rbf": {
+          "name": "KernelCPD-rbf",
+          "config": {
+            "kernel": "rbf",
+            "penalty": 10.0,
+            "min_size": 10,
+            "reference": "Harchaoui et al. 2008/2019"
+          },
+          "detection_time": 101,
+          "delay": 1,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.004054167000006714,
+          "diagnostics": {}
+        },
+        "PELT-pen10.0": {
+          "name": "PELT-pen10.0",
+          "config": {
+            "penalty": 10.0,
+            "model": "rbf"
+          },
+          "detection_time": 100,
+          "delay": 0,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.0025198340000045505,
+          "diagnostics": {}
+        }
+      },
+      "bearing_test": "3rd_test",
+      "seed_offset": 0,
+      "series_characteristics": {
+        "n": 6324,
+        "mean": 0.15122220975087644,
+        "std": 0.4026166958422986,
+        "skewness": 24.84010040657847,
+        "kurtosis": 798.2100323518928
+      }
+    },
+    {
+      "dataset": "ims_3rd_test_ch2_kurtosis",
+      "feature": "kurtosis",
+      "cp_position": 6160,
+      "cp_type": "variance",
+      "calib_length": 6060,
+      "test_length": 264,
+      "cp_in_test": 100,
+      "characteristics": {
+        "n": 6060,
+        "mean": 0.12436073484152897,
+        "std": 0.07671646741167985,
+        "skewness": 2.928167951749314,
+        "kurtosis": 26.33010833573908,
+        "hill_index": 4.004286851546323,
+        "acf_lag1": 0.4219045856732881,
+        "acf_lag5": 0.4194629067162823,
+        "acf_lag10": 0.42249150970755583
+      },
+      "detectors": {
+        "GSA-poly-S1": {
+          "name": "GSA-poly-S1",
+          "config": {
+            "basis_type": "poly",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 264,
+          "delay": 164,
+          "is_false_alarm": false,
+          "wall_time_sec": 1.3723020000000048,
+          "diagnostics": {}
+        },
+        "GSA-frac-S1": {
+          "name": "GSA-frac-S1",
+          "config": {
+            "basis_type": "frac",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 231,
+          "delay": 131,
+          "is_false_alarm": false,
+          "wall_time_sec": 1.5273407499999934,
+          "diagnostics": {}
+        },
+        "GSA-log-S2": {
+          "name": "GSA-log-S2",
+          "config": {
+            "basis_type": "log",
+            "degree": 2,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 234,
+          "delay": 134,
+          "is_false_alarm": false,
+          "wall_time_sec": 1.2049032079999904,
+          "diagnostics": {}
+        },
+        "Sign-CUSUM": {
+          "name": "Sign-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 15,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00011975000001029912,
+          "diagnostics": {}
+        },
+        "MAD-CUSUM": {
+          "name": "MAD-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 24,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00019083300000488634,
+          "diagnostics": {}
+        },
+        "EWMA-\u03bb0.1": {
+          "name": "EWMA-\u03bb0.1",
+          "config": {
+            "lambda": 0.1,
+            "L": 3.0
+          },
+          "detection_time": 99,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00023116700000969104,
+          "diagnostics": {}
+        },
+        "BOCPD-StudentT": {
+          "name": "BOCPD-StudentT",
+          "config": {
+            "lambda": 200.0,
+            "alpha": 0.1,
+            "beta": 0.01,
+            "kappa": 1.0,
+            "run_threshold": 5,
+            "warmup": 20,
+            "likelihood": "Student-t (Adams-MacKay 2007)"
+          },
+          "detection_time": 101,
+          "delay": 1,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.014415916999993783,
+          "diagnostics": {}
+        },
+        "KernelCPD-rbf": {
+          "name": "KernelCPD-rbf",
+          "config": {
+            "kernel": "rbf",
+            "penalty": 10.0,
+            "min_size": 10,
+            "reference": "Harchaoui et al. 2008/2019"
+          },
+          "detection_time": 101,
+          "delay": 1,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.0006375410000032389,
+          "diagnostics": {}
+        },
+        "PELT-pen10.0": {
+          "name": "PELT-pen10.0",
+          "config": {
+            "penalty": 10.0,
+            "model": "rbf"
+          },
+          "detection_time": 100,
+          "delay": 0,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.0023830420000052754,
+          "diagnostics": {}
+        }
+      },
+      "bearing_test": "3rd_test",
+      "seed_offset": 1,
+      "series_characteristics": {
+        "n": 6324,
+        "mean": 0.15122220975087644,
+        "std": 0.4026166958422986,
+        "skewness": 24.84010040657847,
+        "kurtosis": 798.2100323518928
+      }
+    },
+    {
+      "dataset": "ims_3rd_test_ch2_kurtosis",
+      "feature": "kurtosis",
+      "cp_position": 6160,
+      "cp_type": "variance",
+      "calib_length": 6060,
+      "test_length": 264,
+      "cp_in_test": 100,
+      "characteristics": {
+        "n": 6060,
+        "mean": 0.12436073484152897,
+        "std": 0.07671646741167985,
+        "skewness": 2.928167951749314,
+        "kurtosis": 26.33010833573908,
+        "hill_index": 4.004286851546323,
+        "acf_lag1": 0.4219045856732881,
+        "acf_lag5": 0.4194629067162823,
+        "acf_lag10": 0.42249150970755583
+      },
+      "detectors": {
+        "GSA-poly-S1": {
+          "name": "GSA-poly-S1",
+          "config": {
+            "basis_type": "poly",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 264,
+          "delay": 164,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.6208783750000038,
+          "diagnostics": {}
+        },
+        "GSA-frac-S1": {
+          "name": "GSA-frac-S1",
+          "config": {
+            "basis_type": "frac",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 231,
+          "delay": 131,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.2186899579999988,
+          "diagnostics": {}
+        },
+        "GSA-log-S2": {
+          "name": "GSA-log-S2",
+          "config": {
+            "basis_type": "log",
+            "degree": 2,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 264,
+          "delay": 164,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.9686596250000008,
+          "diagnostics": {}
+        },
+        "Sign-CUSUM": {
+          "name": "Sign-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 15,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.0001287089999948421,
+          "diagnostics": {}
+        },
+        "MAD-CUSUM": {
+          "name": "MAD-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 24,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00019104199999731009,
+          "diagnostics": {}
+        },
+        "EWMA-\u03bb0.1": {
+          "name": "EWMA-\u03bb0.1",
+          "config": {
+            "lambda": 0.1,
+            "L": 3.0
+          },
+          "detection_time": 99,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00022812500000668479,
+          "diagnostics": {}
+        },
+        "BOCPD-StudentT": {
+          "name": "BOCPD-StudentT",
+          "config": {
+            "lambda": 200.0,
+            "alpha": 0.1,
+            "beta": 0.01,
+            "kappa": 1.0,
+            "run_threshold": 5,
+            "warmup": 20,
+            "likelihood": "Student-t (Adams-MacKay 2007)"
+          },
+          "detection_time": 101,
+          "delay": 1,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.014298124999996276,
+          "diagnostics": {}
+        },
+        "KernelCPD-rbf": {
+          "name": "KernelCPD-rbf",
+          "config": {
+            "kernel": "rbf",
+            "penalty": 10.0,
+            "min_size": 10,
+            "reference": "Harchaoui et al. 2008/2019"
+          },
+          "detection_time": 101,
+          "delay": 1,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.0005826250000069422,
+          "diagnostics": {}
+        },
+        "PELT-pen10.0": {
+          "name": "PELT-pen10.0",
+          "config": {
+            "penalty": 10.0,
+            "model": "rbf"
+          },
+          "detection_time": 100,
+          "delay": 0,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.0023609170000042923,
+          "diagnostics": {}
+        }
+      },
+      "bearing_test": "3rd_test",
+      "seed_offset": 2,
+      "series_characteristics": {
+        "n": 6324,
+        "mean": 0.15122220975087644,
+        "std": 0.4026166958422986,
+        "skewness": 24.84010040657847,
+        "kurtosis": 798.2100323518928
+      }
+    },
+    {
+      "dataset": "ims_3rd_test_ch2_kurtosis",
+      "feature": "kurtosis",
+      "cp_position": 6160,
+      "cp_type": "variance",
+      "calib_length": 6060,
+      "test_length": 264,
+      "cp_in_test": 100,
+      "characteristics": {
+        "n": 6060,
+        "mean": 0.12436073484152897,
+        "std": 0.07671646741167985,
+        "skewness": 2.928167951749314,
+        "kurtosis": 26.33010833573908,
+        "hill_index": 4.004286851546323,
+        "acf_lag1": 0.4219045856732881,
+        "acf_lag5": 0.4194629067162823,
+        "acf_lag10": 0.42249150970755583
+      },
+      "detectors": {
+        "GSA-poly-S1": {
+          "name": "GSA-poly-S1",
+          "config": {
+            "basis_type": "poly",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 230,
+          "delay": 130,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.4962558329999922,
+          "diagnostics": {}
+        },
+        "GSA-frac-S1": {
+          "name": "GSA-frac-S1",
+          "config": {
+            "basis_type": "frac",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 231,
+          "delay": 131,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.21734849999999994,
+          "diagnostics": {}
+        },
+        "GSA-log-S2": {
+          "name": "GSA-log-S2",
+          "config": {
+            "basis_type": "log",
+            "degree": 2,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 264,
+          "delay": 164,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.9904334999999946,
+          "diagnostics": {}
+        },
+        "Sign-CUSUM": {
+          "name": "Sign-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 15,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.0001237920000107806,
+          "diagnostics": {}
+        },
+        "MAD-CUSUM": {
+          "name": "MAD-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 24,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.0001926249999968377,
+          "diagnostics": {}
+        },
+        "EWMA-\u03bb0.1": {
+          "name": "EWMA-\u03bb0.1",
+          "config": {
+            "lambda": 0.1,
+            "L": 3.0
+          },
+          "detection_time": 99,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00023170800000116287,
+          "diagnostics": {}
+        },
+        "BOCPD-StudentT": {
+          "name": "BOCPD-StudentT",
+          "config": {
+            "lambda": 200.0,
+            "alpha": 0.1,
+            "beta": 0.01,
+            "kappa": 1.0,
+            "run_threshold": 5,
+            "warmup": 20,
+            "likelihood": "Student-t (Adams-MacKay 2007)"
+          },
+          "detection_time": 101,
+          "delay": 1,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.014776083000000995,
+          "diagnostics": {}
+        },
+        "KernelCPD-rbf": {
+          "name": "KernelCPD-rbf",
+          "config": {
+            "kernel": "rbf",
+            "penalty": 10.0,
+            "min_size": 10,
+            "reference": "Harchaoui et al. 2008/2019"
+          },
+          "detection_time": 101,
+          "delay": 1,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.0005842919999992091,
+          "diagnostics": {}
+        },
+        "PELT-pen10.0": {
+          "name": "PELT-pen10.0",
+          "config": {
+            "penalty": 10.0,
+            "model": "rbf"
+          },
+          "detection_time": 100,
+          "delay": 0,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.002432749999996986,
+          "diagnostics": {}
+        }
+      },
+      "bearing_test": "3rd_test",
+      "seed_offset": 3,
+      "series_characteristics": {
+        "n": 6324,
+        "mean": 0.15122220975087644,
+        "std": 0.4026166958422986,
+        "skewness": 24.84010040657847,
+        "kurtosis": 798.2100323518928
+      }
+    },
+    {
+      "dataset": "ims_3rd_test_ch2_kurtosis",
+      "feature": "kurtosis",
+      "cp_position": 6160,
+      "cp_type": "variance",
+      "calib_length": 6060,
+      "test_length": 264,
+      "cp_in_test": 100,
+      "characteristics": {
+        "n": 6060,
+        "mean": 0.12436073484152897,
+        "std": 0.07671646741167985,
+        "skewness": 2.928167951749314,
+        "kurtosis": 26.33010833573908,
+        "hill_index": 4.004286851546323,
+        "acf_lag1": 0.4219045856732881,
+        "acf_lag5": 0.4194629067162823,
+        "acf_lag10": 0.42249150970755583
+      },
+      "detectors": {
+        "GSA-poly-S1": {
+          "name": "GSA-poly-S1",
+          "config": {
+            "basis_type": "poly",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 264,
+          "delay": 164,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.27571200000001284,
+          "diagnostics": {}
+        },
+        "GSA-frac-S1": {
+          "name": "GSA-frac-S1",
+          "config": {
+            "basis_type": "frac",
+            "degree": 1,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 264,
+          "delay": 164,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.40641670800000895,
+          "diagnostics": {}
+        },
+        "GSA-log-S2": {
+          "name": "GSA-log-S2",
+          "config": {
+            "basis_type": "log",
+            "degree": 2,
+            "epsilon": 0.02,
+            "threshold_type": "simulation",
+            "orthonormalize": true,
+            "robust_moments": true,
+            "calibrate_threshold": true,
+            "n_calibration_runs": 50,
+            "calibration_length": 500
+          },
+          "detection_time": 231,
+          "delay": 131,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.5432725000000005,
+          "diagnostics": {}
+        },
+        "Sign-CUSUM": {
+          "name": "Sign-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 15,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00012812500000336513,
+          "diagnostics": {}
+        },
+        "MAD-CUSUM": {
+          "name": "MAD-CUSUM",
+          "config": {
+            "epsilon": 0.02
+          },
+          "detection_time": 24,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.0001946670000023687,
+          "diagnostics": {}
+        },
+        "EWMA-\u03bb0.1": {
+          "name": "EWMA-\u03bb0.1",
+          "config": {
+            "lambda": 0.1,
+            "L": 3.0
+          },
+          "detection_time": 99,
+          "delay": Infinity,
+          "is_false_alarm": true,
+          "wall_time_sec": 0.00023112499999911051,
+          "diagnostics": {}
+        },
+        "BOCPD-StudentT": {
+          "name": "BOCPD-StudentT",
+          "config": {
+            "lambda": 200.0,
+            "alpha": 0.1,
+            "beta": 0.01,
+            "kappa": 1.0,
+            "run_threshold": 5,
+            "warmup": 20,
+            "likelihood": "Student-t (Adams-MacKay 2007)"
+          },
+          "detection_time": 101,
+          "delay": 1,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.015769917000000078,
+          "diagnostics": {}
+        },
+        "KernelCPD-rbf": {
+          "name": "KernelCPD-rbf",
+          "config": {
+            "kernel": "rbf",
+            "penalty": 10.0,
+            "min_size": 10,
+            "reference": "Harchaoui et al. 2008/2019"
+          },
+          "detection_time": 101,
+          "delay": 1,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.0006223749999918482,
+          "diagnostics": {}
+        },
+        "PELT-pen10.0": {
+          "name": "PELT-pen10.0",
+          "config": {
+            "penalty": 10.0,
+            "model": "rbf"
+          },
+          "detection_time": 100,
+          "delay": 0,
+          "is_false_alarm": false,
+          "wall_time_sec": 0.0026027090000013686,
+          "diagnostics": {}
+        }
+      },
+      "bearing_test": "3rd_test",
+      "seed_offset": 4,
+      "series_characteristics": {
+        "n": 6324,
+        "mean": 0.15122220975087644,
+        "std": 0.4026166958422986,
+        "skewness": 24.84010040657847,
+        "kurtosis": 798.2100323518928
+      }
+    }
+  ]
+}
